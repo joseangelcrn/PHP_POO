@@ -75,8 +75,28 @@
 
 
 		public function getById($id){
-			if (number) {
-				# code...
+			if (is_numeric($id)) {
+				$this->conexion->conectar();
+				if ($this->conexion != null) {
+					$sql = "SELECT * FROM usuarios WHERE id = $id";
+
+					$result = $this->conexion->getConnection()->query($sql);
+
+					if ($result) {
+						
+						while ($row = mysqli_fetch_assoc($result)) {
+							$usuario = $row;
+						}
+						return $usuario;
+					}
+
+					else{
+						return null;
+					}
+				}
+			}
+			else{
+				return null;
 			}
 		}
 	}
@@ -84,16 +104,21 @@
 
 	 $uh = new UsuarioHandler();
 	
-	$todosLosusuarios = $uh->getTodos();
+	// // $todosLosusuarios = $uh->getTodos();
 
-	var_dump($todosLosusuarios);
+	// // var_dump($todosLosusuarios);
 		
 
-	$var = new Usuario(0,"jose","apellidos","dddfgfg@asdasd.com","passwosdfrd","españa",'1434-04-03','2000-01-01');
+	// // $var = new Usuario(0,"jose","apellidos","dddfgfg@asdasd.com","passwosdfrd","españa",'1434-04-03','2000-01-01');
 	 
-	 $result =  $uh->insertar($var);
+	// //  $result =  $uh->insertar($var);
 
-	var_dump($result);
+	// var_dump($result);
+
+
+	 $usuario = $uh->getById(18);
+
+	 var_dump($usuario);
 	
 
  ?>
