@@ -71,6 +71,14 @@
 				return null;
 			 }
 		}
+
+
+
+		public function getById($id){
+			if (number) {
+				# code...
+			}
+		}
 	}
 
 
