@@ -99,16 +99,69 @@
 				return null;
 			}
 		}
+
+		public function deleteById($id){
+			if (is_numeric($id)) {
+				$this->conexion->conectar();
+				if ($this->conexion != null) {
+					$sql = "DELETE FROM usuarios WHERE id = $id";
+
+					$result = $this->conexion->getConnection()->query($sql);
+
+					if ($result) {
+						
+						return true;
+					}
+
+					else{
+						return null;
+					}
+				}
+			}
+			else{
+				return null;
+			}
+		}
+
+		public function findLikeApellidos($apellidos){
+			$this->conexion->conectar();
+
+			if ($this->conexion != null) {
+				$sql = "SELECT * FROM usuarios WHERE apellidos LIKE'%{$apellidos}%'";
+
+				$result = $this->conexion->getConnection()->query($sql);
+
+				if ($result) {
+					$usuarios = array();
+
+					while ($row = mysqli_fetch_assoc($result)) {
+						array_push($usuarios, $row);
+					}
+					return $usuarios;
+
+
+				}
+				else{
+					return null;
+				}
+
+			}
+		}
+	
+
+
 	}
 
 
-	 $uh = new UsuarioHandler();
+	 // $uh = new UsuarioHandler();
 	
-	// // $todosLosusuarios = $uh->getTodos();
+	 // $todosLosusuarios = $uh->getTodos();
 
-	// // var_dump($todosLosusuarios);
 		
+		
+		//$usuarios =  $uh->findLikeApellidos("apellidos");
 
+		//var_dump($usuarios);
 	// // $var = new Usuario(0,"jose","apellidos","dddfgfg@asdasd.com","passwosdfrd","españa",'1434-04-03','2000-01-01');
 	 
 	// //  $result =  $uh->insertar($var);
@@ -116,9 +169,9 @@
 	// var_dump($result);
 
 
-	 $usuario = $uh->getById(18);
+	// $usuario = $uh->getById(18);
 
-	 var_dump($usuario);
+	 //var_dump($usuario);
 	
 
  ?>
